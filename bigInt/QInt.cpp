@@ -229,7 +229,7 @@ string QInt::toBinaryString()
 			if (this->arrayBits[i] == 1)
 			break;
 		}
-		i--;
+		
 		for (; i < 128; i++)
 		{
 			res << (char)(arrayBits[i] + 48);
@@ -278,7 +278,8 @@ string QInt::toHexaString()
 	for (int i = 0; i < 128; i += 4)
 	{
 		int dem = arrayBits[i+0]*8+arrayBits[i+1]*4+arrayBits[i+2]*2+arrayBits[i+3];
-		res.append((const char*)kitu[dem]);
+		//res.append((const char*)kitu[dem]);
+		res.insert(res.end(), kitu[dem]);
 	}
 	while (res[0] == '0')
 	{
@@ -294,7 +295,8 @@ string QInt::toHexaString(const QInt& a)
 	for (int i = 0; i < 128; i += 4)
 	{
 		int dem = a.arrayBits[i + 0] * 8 + a.arrayBits[i + 1] * 4 + a.arrayBits[i + 2] * 2 + a.arrayBits[i + 3];
-		res.append((const char*)kitu[dem]);
+		res.insert(res.end(), kitu[dem]);
+
 	}
 	while (res[0] == '0')
 	{

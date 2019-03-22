@@ -1,2 +1,5 @@
 ﻿  Source.cpp
+  _common.cpp
+c:\users\dell-pc\desktop\do an\bigint\bigint\_common.cpp(199): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   bigInt.vcxproj -> C:\Users\DELL-PC\Desktop\do an\bigInt\Debug\bigInt.exe

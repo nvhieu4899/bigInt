@@ -4,7 +4,6 @@
 #include <sstream>
 #include "_common.h"
 using namespace std;
-string div2(string x);
 
 class QInt
 {
