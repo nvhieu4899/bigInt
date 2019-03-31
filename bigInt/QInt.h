@@ -19,7 +19,7 @@ public:
 	QInt operator|(QInt);
 	//Operator AND
 	QInt operator&(QInt);
-	QInt operator~();
+	QInt NOT();
 	//THIEU TOAN TU NOT ~
 	// Operator + - * /
 	QInt& operator=(const QInt&);
@@ -29,11 +29,15 @@ public:
 	QInt operator/(const QInt&);
 	QInt operator>>(const int&);
 	QInt operator<<(const int&);
-	string toBinaryString();
+	QInt ror();
+	QInt rol();
+	QInt opposite() const;
+	string toBinaryString() const;
 	static string toBinaryString(const QInt&);
-	string toDecimalString();
+	string toDecimalString() const ;
 	static string toDecimalString(const QInt&);
-	string toHexaString();
+	string toHexaString() const;
 	static string toHexaString(const QInt&);
+	string toString(int radix) const;
 };
 

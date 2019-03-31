@@ -190,7 +190,7 @@ QInt QInt::operator|(QInt a)
 	QInt res;
 	for (int i = 0; i < 128; i++)
 	{
-		res.arrayBits[i] = this->arrayBits[i] | a.arrayBits[i];
+		res.arrayBits[i] = this->arrayBits[i] + a.arrayBits[i]-(this->arrayBits[i] * a.arrayBits[i]);
 	}
 	return res;
 }
@@ -199,7 +199,7 @@ QInt QInt::operator&(QInt a)
 	QInt res;
 	for (int i = 0; i < 128; i++)
 	{
-		res.arrayBits[i] = this->arrayBits[i] & a.arrayBits[i];
+		res.arrayBits[i] = this->arrayBits[i] * a.arrayBits[i];
 	}
 	return res;
 }
@@ -211,7 +211,7 @@ QInt& QInt::operator=(const QInt& a)
 	}
 	return *this;
 }
-string QInt::toBinaryString()
+string QInt::toBinaryString() const
 {
 	stringstream res;
 	if (arrayBits[0] == 1)
@@ -237,7 +237,7 @@ string QInt::toBinaryString()
 	}
 	return res.str();
 }
-QInt QInt::operator~()
+QInt QInt::NOT()
 {
 	QInt res;
 	for (int i = 0; i < 128; i++)
@@ -271,7 +271,7 @@ string QInt::toBinaryString(const QInt& a)
 	}
 	return res.str();
 }
-string QInt::toHexaString()
+string QInt::toHexaString() const
 {
 	string res;
 	char kitu[16] = { '0','1' ,'2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
@@ -314,4 +314,120 @@ QInt QInt::operator+(const QInt& a)
 		this->arrayBits[i] = res % 2;
 	}
 	return *this;
+}
+string QInt::toDecimalString() const
+{
+	string res = "0";
+	string x = "1";
+	for (int i = 127; i > 0; i--)
+	{
+		if (this->arrayBits[i] == 1)
+		{
+			res = _common::addStr10(res, x);
+		}
+		x = _common::mult2Str10(x);
+	}
+	x.insert(x.begin(),'-');
+	if (this->arrayBits[0] == 1) res = _common::addStr10(res, x);
+	return res;
+}
+string QInt::toDecimalString(const QInt& a)
+{
+	string res = "0";
+	string x = "1";
+	for (int i = 127; i > 0; i--)
+	{
+		if (a.arrayBits[i] == 1)
+		{
+			res = _common::addStr10(res, x);
+		}
+		x = _common::mult2Str10(x);
+	}
+	x = "-" + x;
+	if (a.arrayBits[0] == 1) res = _common::addStr10(res, x);
+	return res;
+}
+string QInt::toString(int radix) const
+{
+	if (radix == 2) return this->toBinaryString();
+	else if (radix == 10) return this->toDecimalString();
+	else if (radix == 16) return this->toHexaString();
+	return "";
+}
+QInt QInt::opposite() const
+{
+	return QInt("-"+this->toString(10));
+}
+QInt QInt::operator-(const QInt& b)
+{
+	return *this + b.opposite();
+}
+QInt QInt::operator<<(const int &n)
+{
+	QInt res;
+	int count = 0;
+
+	for (int i = 0; i < 128; i++)
+	{
+		res.arrayBits[i] = this->arrayBits[i];
+	}
+
+	do
+	{
+		for (int i = 0; i < 127; i++)
+		{
+			res.arrayBits[i] = res.arrayBits[i + 1];
+		}
+		res.arrayBits[127] = 0;
+		count++;
+	} while (count < n);
+	return res;
+}
+
+QInt QInt::operator>>(const int &n)
+{
+	QInt res;
+	int count = 0;
+
+	for (int i = 0; i < 128; i++)
+	{
+		res.arrayBits[i] = this->arrayBits[i];
+	}
+
+	do
+	{
+		for (int i = 127; i > 0; i--)
+		{
+			res.arrayBits[i] = res.arrayBits[i - 1];
+		}
+		res.arrayBits[0] = res.arrayBits[1];
+		count++;
+	} while (count < n);
+	return res;
+}
+
+/* ----- Rotate Left/Right -----*/
+QInt QInt::rol()
+{
+	QInt res;
+	char ch = this->arrayBits[0];
+
+	for (int i = 0; i < 127; i++)
+	{
+		res.arrayBits[i] = this->arrayBits[i + 1];
+	}
+	res.arrayBits[127] = ch;
+	return res;
+}
+
+QInt QInt::ror()
+{
+	QInt res;
+	char ch = this->arrayBits[127];
+	for (int i = 127; i > 0; i--)
+	{
+		res.arrayBits[i] = this->arrayBits[i - 1];
+	}
+	res.arrayBits[0] = ch;
+	return res;
 }

@@ -13,6 +13,7 @@ public:
 	static string absStr10(string);
 	static int compareStr10(string, string);
 	static string subStr10(string, string);
-	//static string pow2(int exp);
+	static string mult2Str10(string);
+	static string pow2(int exp);
 };
 

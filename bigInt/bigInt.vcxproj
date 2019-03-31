@@ -118,10 +118,12 @@
     <ClCompile Include="QInt.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="_common.cpp" />
+    <ClCompile Include="_file.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QInt.h" />
     <ClInclude Include="_common.h" />
+    <ClInclude Include="_file.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

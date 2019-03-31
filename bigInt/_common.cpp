@@ -211,3 +211,16 @@ int _common::compareStr10(string a, string b)
 	}
 	return 0;
 }
+string _common::mult2Str10(string a)
+{
+	return _common::addStr10(a, a);
+}
+string _common::pow2(int exp)
+{
+	string res = "1";
+	for (int i = 0; i < exp; i++)
+	{
+		res = _common::mult2Str10(res);
+	}
+	return res;
+}

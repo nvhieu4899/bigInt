@@ -1,11 +1,18 @@
-#include <iostream>
+﻿#include <iostream>
 #include "QInt.h"
+#include "_file.h"
+#include <fstream>
 using namespace std;
 int main(int argc, char* argv[])
 {
-	//QInt a("-1", 10);
-	//QInt b("9", 10);
-	//cout << (a+b).toBinaryString() << endl;
-	cout << _common::addStr10("-99","11") << endl;
-	system("pause");
+	fstream fin((const char*)argv[1], ios::in);
+	fstream fout((const char*)argv[2], ios::out);
+	string temp;
+	while (!fin.eof())
+	{
+		getline(fin, temp);
+		fout << _file::lineProcess(temp) << endl;
+	}
+	fin.close();
+	fout.close();
 }
